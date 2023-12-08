@@ -1,19 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input v-model="name" placeholder="name" />
+    <input v-model="email" placeholder="email" />
+    <input v-model="password" type="password" placeholder="password" />
+    <input
+      v-model="confirmPassword"
+      type="password"
+      placeholder="confirm password"
+    />
+    <button @click="save">Save</button>
+    <div v-if="show">
+      {{ name }}, {{ email }}, {{ password }}, {{ confirmPassword }}
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      show: false,
+    };
+  },
+  computed: {},
+  methods: {
+    save() {
+      this.validPassword();
+      this.show = true;
+    },
+    validPassword() {
+      if (this.password === this.confirmPassword) {
+        alert("Success");
+      } else {
+        alert("Error");
+      }
+    },
+  },
+};
 </script>
 
 <style>
