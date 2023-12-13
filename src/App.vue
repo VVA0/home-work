@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <o-input placeholder="test" :value="name" @input-test="setName" />
+    <o-input v-model="name" />
     <input v-model="name" placeholder="name" />
     <input v-model="email" placeholder="email" />
     <input v-model="password" type="password" placeholder="password" />
@@ -16,8 +18,12 @@
 </template>
 
 <script>
+import OInput from "./components/UI/OInput.vue"; /*Тут я импортирую новый компонент */
 export default {
   name: "App",
+  components: {
+    OInput,
+  },
   data() {
     return {
       name: "",
@@ -40,6 +46,9 @@ export default {
         alert("Error");
       }
     },
+    setName(value) {
+      this.name = value;
+    } /* метод который меняет значение name*/,
   },
 };
 </script>
