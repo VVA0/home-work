@@ -3,6 +3,7 @@
     <EmailInput :email="email" @sendEmail="setEmail" />
     <PasswordInput :password="password" @sendPassword="setPassword" />
     <LoginButton @pressButton="login" title="save" />
+    {{ dataForm }}
   </div>
 </template>
 
@@ -19,11 +20,33 @@ export default {
   },
   data() {
     return {
-      email: "",
+      // email: "",
       password: "",
       button: "Login",
     };
   },
+
+  computed: {
+    dataForm() {
+      console.log("hello!");
+      return this.email + " " + this.password;
+    },
+    email: {
+      get() {
+        return this.$route.query.email;
+      },
+      set(value) {
+        this.$router.replace({
+          name: "login",
+          query: {
+            ...this.$route.query,
+            email: value,
+          },
+        });
+      },
+    },
+  },
+
   methods: {
     setEmail(value) {
       this.email = value;
@@ -32,10 +55,7 @@ export default {
       this.password = value;
     },
     login() {
-      console.log({
-        email: this.email,
-        password: this.password,
-      });
+      console.log(this.dataForm);
     },
   },
 };

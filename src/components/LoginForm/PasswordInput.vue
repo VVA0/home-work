@@ -1,7 +1,7 @@
 <template>
   <input
-    @input="inputPassword"
-    :value="password"
+    v-model="passwordComputed"
+    :class="{ error: hasError }"
     placeholder="Введите пароль"
   />
 </template>
@@ -10,12 +10,25 @@
 export default {
   name: "PasswordInput",
   props: ["password"],
-  methods: {
-    inputPassword(value) {
-      this.$emit("sendPassword", value.target.value);
+  computed: {
+    hasError() {
+      return this.passwordComputed.length < 10;
+    },
+    passwordComputed: {
+      get() {
+        return this.password;
+      },
+      set(value) {
+        this.$emit("sendPassword", value);
+      },
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+/*scoped- это (атрибут) для того, чтобы стили применялись только к этому компоненту */
+input.error {
+  background-color: red;
+}
+</style>

@@ -1,14 +1,19 @@
 <template>
-  <input @input="inputEmail" :value="email" placeholder="Введите email" />
+  <input v-model="emailComputed" placeholder="Введите email" />
 </template>
 
 <script>
 export default {
   name: "EmailInput",
   props: ["email"],
-  methods: {
-    inputEmail(value) {
-      this.$emit("sendEmail", value.target.value);
+  computed: {
+    emailComputed: {
+      get() {
+        return this.email;
+      },
+      set(value) {
+        this.$emit("sendEmail", value);
+      },
     },
   },
 };
